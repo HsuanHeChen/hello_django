@@ -1,0 +1,14 @@
+<!-- hello_world.html -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>I come from template!!</title>
+        {% load staticfiles %}
+        <link href="{% static 'css/hello_world.css' %}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <h1>Hello World! Django!</h1>
+        <em>{{ current_time }}</em>
+    </body>
+</html>
