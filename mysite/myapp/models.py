@@ -27,7 +27,6 @@ class Review(TimeStampedModel):
     photo = models.URLField(blank=True)
     location = models.CharField(blank=True, max_length=100)
     published_at = models.DateTimeField(null=True, blank=True)
-
     objects = PublishedManager()
 
     def __str__(self):
