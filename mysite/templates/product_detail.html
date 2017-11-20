@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block head %}<title>Product</title>{% endblock %}
+{% block content %}
+  <div>
+    <!-- <a href="">Reviews</a> -->
+  </div>
+  <div class="product">
+    <span class="field id">{{ product.id }}</span>
+    <span class="field name">{{ product.name }}</span>
+    <span class="field sku">{{ product.sku }}</span>
+  </div>
+{% endblock %}
