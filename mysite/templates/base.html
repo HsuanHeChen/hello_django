@@ -1,11 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        {% block head %}{% endblock %}
-        {% load staticfiles %}
-        <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-        {% block content %}{% endblock %}
-    </body>
+  <head>
+    {% block head %}{% endblock %}
+    {% load staticfiles %}
+    <link href="{% static 'css/paper.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/common.css' %}" rel="stylesheet" type="text/css">
+  </head>
+  <body>
+    <div class="margin">
+      <div class="row flex-spaces child-borders">
+        <div class="sm-12 col" style="text-align: right;">
+          {% if request.user.is_authenticated %}
+            Hi, {{request.user.username}}
+            <a href="/logout" class="paper-btn btn-small">Logout</a>
+          {% else %}
+            <a href="/login" class="paper-btn btn-small">Login</a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if messages %}
+        <div class="row flex-spaces">
+          {% for msg in messages %}       
+            <div class="alert alert-{{msg.level_tag}}">{{msg.message}}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% block content %}{% endblock %}
+    </div>
+  </body>
 </html>

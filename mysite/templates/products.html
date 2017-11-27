@@ -2,15 +2,29 @@
 {% block head %}<title>Products</title>{% endblock %}
 {% block content %}
   <h1>Products</h1>
-  <div class="message">{{message}}</div>
-  <a href="{% url 'product_create' %}">NEW Product!</a>
-  {% for product in products %}
-    <div class="product">
-      <span class="field id">{{ product.id }}</span>
-      <span class="field name"><a href="{% url 'product_detail' id=product.id %}">{{ product.name }}</a></span>
-      <span class="field sku">{{ product.sku }}</span>
-      <span class="field"><a href="{% url 'product_edit' id=product.id %}">Edit</a></span>
-      <span class="field"><a data-confirm="Are you sure?" data-method="delete" href="{% url 'product_delete' id=product.id %}">Delete</a></span>
-    </div>
-  {% endfor %}
+  <div class="text-warning">{{message}}</div>
+  <div class="margin"><a href="{% url 'product_create' %}" class="paper-btn">NEW Product!</a></div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>sku</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr>
+          <td>{{ product.id }}</td>
+          <td><a href="{% url 'product_detail' id=product.id %}">{{ product.name }}</a></td>
+          <td>{{ product.sku }}</td>
+          <td><a href="{% url 'product_edit' id=product.id %}" class="paper-btn btn-small">Edit</a></td>
+          <td><a data-confirm="Are you sure?" data-method="delete" href="{% url 'product_delete' id=product.id %}" class="paper-btn btn-small">Delete</a></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 {% endblock %}

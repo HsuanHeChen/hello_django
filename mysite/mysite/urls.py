@@ -16,14 +16,23 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from myapp.views import hello_world, products, product_detail, product_create, product_edit, product_delete
+from loginapp.views import login, logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+
+
     url(r'^$', hello_world),
     url(r'^hello-world/(\w+)/$', hello_world),
+
+
     url(r'^products/$', products, name='products'),
     url(r'^products/(?P<id>\d+)/$', product_detail, name='product_detail'),
     url(r'^products/new/$', product_create, name='product_create'),
     url(r'^products/(?P<id>\d+)/edit/$', product_edit, name='product_edit'),
     url(r'^products/(?P<id>\d+)/delete/$', product_delete, name='product_delete'),
+
+
+    url(r'^login/$', login),
+    url(r'^logout/$', logout),
 ]
