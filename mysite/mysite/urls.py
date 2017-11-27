@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', hello_world),
     url(r'^hello-world/(\w+)/$', hello_world),
-    url(r'^products/$', products),
+    url(r'^products/$', products, name='products'),
     url(r'^products/(?P<id>\d+)/$', product_detail, name='product_detail'),
     url(r'^products/new/$', product_create, name='product_create'),
     url(r'^products/(?P<id>\d+)/edit/$', product_edit, name='product_edit'),

@@ -12,7 +12,9 @@ def hello_world(request, name=""):
         current_time = datetime.now()
         return render(request, 'hello_world.html', locals())
     else:
-        return HttpResponse("Hello world! {}!".format(name))
+        response = HttpResponse("Hello world! {}!".format(name))
+        request.session['test'] = 'testtesttest'
+        return response
 
 
 def products(request):
