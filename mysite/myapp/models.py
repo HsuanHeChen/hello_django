@@ -14,9 +14,11 @@ class PublishedManager(models.Manager):
 
 class Product(TimeStampedModel):
     name = models.CharField(max_length=200)
-    sku =  models.CharField(blank=True, max_length=100)
+    sku = models.CharField(blank=True, max_length=100)
     photo = models.URLField(blank=True)
-    
+    enabled = models.BooleanField(default=False)
+    press = models.IntegerField(default=0)  # 點擊次數
+
     def __str__(self):
         return self.name
 
@@ -26,7 +28,7 @@ class Review(TimeStampedModel):
     content = models.TextField(blank=True)
     photo = models.URLField(blank=True)
     location = models.CharField(blank=True, max_length=100)
-    published_at = models.DateTimeField(null=True, blank=True)
+    published_at = models.DateTimeField(auto_now=True)
     objects = PublishedManager()
 
     def __str__(self):
