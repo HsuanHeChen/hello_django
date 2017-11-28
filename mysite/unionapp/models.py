@@ -8,7 +8,6 @@ from core.models import TimeStampedModel
 
 
 class Union(TimeStampedModel):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     disabled = models.BooleanField(default=False)
 
@@ -23,3 +22,7 @@ class Member(TimeStampedModel):
     invited_at = models.DateTimeField(auto_now=True)
     join_at = models.DateTimeField(null=True, blank=True)
     quit_at = models.DateTimeField(null=True, blank=True)
+    is_admin = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.name

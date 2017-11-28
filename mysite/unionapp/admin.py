@@ -11,6 +11,6 @@ class MemberInline(admin.TabularInline):
 
 @admin.register(Union)
 class UnionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'owner', 'name', 'disabled')
+    list_display = ('id', 'name', 'disabled')
     ordering = ('id',)
     inlines = [MemberInline]

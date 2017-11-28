@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block head %}<title>unions</title>{% endblock %}
+{% block content %}
+  <h1>Your Unions</h1>
+  <div class="text-warning">{{message}}</div>
+  <div class="margin"><a href="#" class="paper-btn">Create Union</a></div>
+  <ol>
+    {% for object in object_list %}
+      <li>
+        <td>{{ object.name }}</td>
+        <td><a href="#" class="paper-btn btn-small">Edit</a></td>
+        <td><a data-confirm="Are you sure?" data-method="delete" href="#" class="paper-btn btn-small">Delete</a></td>
+      </li>
+    {% endfor %}
+  </ol>
+{% endblock %}
