@@ -33,5 +33,5 @@ urlpatterns = [
     url(r'^logout/$', logout),
 
     # hello CBV.
-    url(r'^unions/', include('unionapp.urls')),
+    url(r'^unions/', include('unionapp.urls', namespace='unionapp')),
 ]

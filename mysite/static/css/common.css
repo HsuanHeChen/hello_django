@@ -1,9 +1,3 @@
-.product .field {
-  padding: 10px;
-}
-.product .name a {
-  color: #dd406f;
-}
-.product .sku {
-  color: #4d4d4d;
+.action-block {
+  float: right;
 }

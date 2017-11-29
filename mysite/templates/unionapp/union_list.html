@@ -2,12 +2,11 @@
 {% block head %}<title>unions</title>{% endblock %}
 {% block content %}
   <h1>Your Unions</h1>
-  <div class="text-warning">{{message}}</div>
-  <div class="margin"><a href="#" class="paper-btn">Create Union</a></div>
+  <div class="action-block"><a href="{% url 'unionapp:new' %}" class="paper-btn">Create Union</a></div>
   <br/>
   <ul>
     {% for object in object_list %}
-      <li><a href="{% url 'union_detial'  pk=object.id %}">{{ object.name }}</a></li>
+      <li><a href="{% url 'unionapp:detial'  pk=object.id %}">{{ object.name }}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}

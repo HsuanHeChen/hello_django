@@ -3,7 +3,7 @@ from .views import *
 
 
 urlpatterns = [
-    url(r'^$', UnionList.as_view(), name='union_list'),
-    url(r'^(?P<pk>\d+)/$', UnionDetailView.as_view(), name='union_detial'),
-    url(r'^new/$', UnionCreateView.as_view()),
+    url(r'^$', UnionList.as_view(), name='list'),
+    url(r'^(?P<pk>\d+)/$', UnionDetail.as_view(), name='detial'),
+    url(r'^new/$', UnionCreate.as_view(), name='new'),
 ]

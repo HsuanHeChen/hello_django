@@ -2,15 +2,12 @@
 {% block head %}<title>unions detail</title>{% endblock %}
 {% block content %}
   <h1>{{object.name}}</h1>
-  <ul>
-    <li>created_at: {{object.created_at|date}}</li>
-  </ul>
-  <div>成員:
+  <div class="action-block"><a href="#" class="paper-btn">InviteMember</a></div>
+  <div>Members:
     <ol>
       {% for member in members %}
-        <li class="text-secondary">{{ member.user.username }}</li>
+        <li class="{% if member.is_admin %}text-secondary{%endif%}">{{ member.user.username }}</li>
       {% endfor %}
     </ol>
-  </div>
-  
+  </div>  
 {% endblock %}

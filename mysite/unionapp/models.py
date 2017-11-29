@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+from django.urls import reverse
 from django.conf import settings
 from core.models import TimeStampedModel
 
@@ -14,11 +14,14 @@ class Union(TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('unionapp:detial', kwargs={'pk': self.pk})
+
 
 class Member(TimeStampedModel):
     union = models.ForeignKey('Union', on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    token = models.CharField(max_length=128)
+    token = models.CharField(blank=True, max_length=128)
     invited_at = models.DateTimeField(auto_now=True)
     join_at = models.DateTimeField(null=True, blank=True)
     quit_at = models.DateTimeField(null=True, blank=True)
