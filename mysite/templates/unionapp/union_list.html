@@ -4,13 +4,10 @@
   <h1>Your Unions</h1>
   <div class="text-warning">{{message}}</div>
   <div class="margin"><a href="#" class="paper-btn">Create Union</a></div>
-  <ol>
+  <br/>
+  <ul>
     {% for object in object_list %}
-      <li>
-        <td>{{ object.name }}</td>
-        <td><a href="#" class="paper-btn btn-small">Edit</a></td>
-        <td><a data-confirm="Are you sure?" data-method="delete" href="#" class="paper-btn btn-small">Delete</a></td>
-      </li>
+      <li><a href="{% url 'union_detial'  pk=object.id %}">{{ object.name }}</a></li>
     {% endfor %}
-  </ol>
+  </ul>
 {% endblock %}

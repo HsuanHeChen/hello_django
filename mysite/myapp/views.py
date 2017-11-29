@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import datetime
 from .models import Product
@@ -7,14 +8,13 @@ from .form import ProductForm
 # Create your views here.
 
 
-def hello_world(request, name=""):
-    if (name == ""):
-        current_time = datetime.now()
-        return render(request, 'hello_world.html', locals())
-    else:
-        response = HttpResponse("Hello world! {}!".format(name))
-        request.session['test'] = 'testtesttest'
-        return response
+# def hello_world(request, name=""):
+#     current_time = datetime.now()
+#     return render(request, 'hello_world.html', locals())
+class HelloWord(View):
+
+    def get(self, request, *args, **kwargs):
+        return render(request, 'hello_world.html', {'current_time': datetime.now()})
 
 
 def products(request):

@@ -23,6 +23,3 @@ class Member(TimeStampedModel):
     join_at = models.DateTimeField(null=True, blank=True)
     quit_at = models.DateTimeField(null=True, blank=True)
     is_admin = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.user.name
