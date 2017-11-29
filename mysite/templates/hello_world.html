@@ -7,8 +7,8 @@
 {% block content %}
   <h1>Hello World! Django!</h1>
   <h4>{{ current_time }}</h4>
-  <div>
-    <a href="/products" class="paper-btn">ProductsApp</a>
-    <a href="{% url 'unionapp:list' %}" class="paper-btn">UnionsApp</a>
+  <div class="row child-borders">
+    <a href="/products" class="sm-2 col border border-primary">ProductsApp</a>
+    <a href="{% url 'unionapp:list' %}" class="sm-2 col border border-secondary">UnionsApp</a>
   </div>
 {% endblock %}

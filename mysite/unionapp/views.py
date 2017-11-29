@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from .models import Union, Member
@@ -39,3 +39,9 @@ class UnionCreate(LoginRequiredMixin, CreateView):
             is_admin=True
         )
         return response
+
+
+class UnionUpdate(LoginRequiredMixin, UpdateView):
+    login_url = '/login/'
+    model = Union
+    form_class = UnionForm
