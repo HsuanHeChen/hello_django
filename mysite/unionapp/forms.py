@@ -5,4 +5,4 @@ from . import models
 class UnionForm(forms.ModelForm):
     class Meta:
         model = models.Union
-        fields = ['name',]
+        fields = ['name']

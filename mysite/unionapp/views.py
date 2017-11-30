@@ -1,9 +1,11 @@
-from django.shortcuts import render
+import json
+# from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.core import serializers
 from django.utils import timezone
-from .models import Union, Member
+from .models import Union, Member, ModelFormFailureHistory
 from .forms import UnionForm
 
 
@@ -12,9 +14,23 @@ class UnionMixin(object):
     login_url = '/login/'
     model = Union
 
+    @property
+    def success_msg(self):
+        return NotImplemented
+
+    def form_invalid(self, form):
+        """Save invalid form and model data for later reference."""
+        form_data = json.dumps(form.cleaned_data)
+        model_data = serializers.serialize("json", [form.instance])[1:-1]
+        ModelFormFailureHistory.objects.create(
+            form_data=form_data,
+            model_data=model_data
+        )
+        return super(UnionMixin, self).form_invalid(form)
+
 
 class UnionList(LoginRequiredMixin, UnionMixin, ListView):
-    
+
     def get_queryset(self):
         # Fetch the queryset from the parent get_queryset
         queryset = super(UnionList, self).get_queryset()
@@ -29,7 +45,7 @@ class UnionList(LoginRequiredMixin, UnionMixin, ListView):
 
 
 class UnionDetail(LoginRequiredMixin, UnionMixin, DetailView):
-    
+
     def get_context_data(self, **kwargs):
         context = super(UnionDetail, self).get_context_data(**kwargs)
         context['members'] = Member.objects.filter(union_id=self.kwargs['pk'])
@@ -60,4 +76,4 @@ class UnionUpdate(LoginRequiredMixin, UnionMixin, UpdateView):
 
     def form_valid(self, form):
         messages.success(self.request, self.success_msg)
-        return super(UnionActionMixin, self).form_valid(form)
+        return super(UnionUpdate, self).form_valid(form)
