@@ -18,6 +18,11 @@
           {% endif %}
         </div>
       </div>
+      <div class="row child-borders">
+        <a href="/" class="sm-2 col border border-primary">Home</a>
+        <a href="/products" class="sm-2 col border border-secondary">ProductsApp</a>
+        <a href="{% url 'unionapp:list' %}" class="sm-2 col border border-success">UnionsApp</a>
+      </div>
 
       {% if messages %}
         <div class="row flex-spaces">

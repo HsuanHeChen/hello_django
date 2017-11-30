@@ -9,4 +9,10 @@
       <li><a href="{% url 'unionapp:detial'  pk=object.id %}">{{ object.name }}</a></li>
     {% endfor %}
   </ul>
+  <br/>
+  [FILTER UNION]
+  <form action="{% url 'unionapp:list' %}" method="GET">
+    <input type="text" name="q" />
+    <button type="submit">search</button>
+  </form>
 {% endblock %}
