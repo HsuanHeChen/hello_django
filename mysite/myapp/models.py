@@ -1,15 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from core.models import TimeStampedModel
+from .managers import PublishedManager, VoucherManager
 
 # Create your models here.
-
-
-class PublishedManager(models.Manager):
-    use_for_related_fields = True
-
-    def published(self, **kwargs):
-        return self.filter(published_at__lte=timezone.now(), **kwargs)
 
 
 class Product(TimeStampedModel):
@@ -33,3 +27,13 @@ class Review(TimeStampedModel):
 
     def __str__(self):
         return self.title
+
+
+class Voucher(TimeStampedModel):
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+    address = models.TextField()
+    birth_date = models.DateField(blank=True)
+    sent = models.BooleanField(default=False)
+    redeemed = models.BooleanField(default=False)
+    objects = VoucherManager()

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import datetime
-from .models import Product
+from .models import Product, Voucher
 from .form import ProductForm
 
 # Create your views here.
@@ -14,7 +14,7 @@ from .form import ProductForm
 class HelloWord(View):
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'hello_world.html', {'current_time': datetime.now()})
+        return render(request, 'hello_world.html', {'current_time': datetime.now(), 'age_brackets': Voucher.objects.age_breakdown})
 
 
 def products(request):

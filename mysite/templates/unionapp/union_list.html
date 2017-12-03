@@ -3,16 +3,14 @@
 {% block content %}
   <h1>Your Unions</h1>
   <div class="action-block"><a href="{% url 'unionapp:new' %}" class="paper-btn">Create Union</a></div>
+  <form action="{% url 'unionapp:list' %}" method="GET">
+    <input type="text" name="q" class="q-input" placeholder="FIND UNION" />
+    <button type="submit" class="q-input">search</button>
+  </form>
   <br/>
   <ul>
     {% for object in object_list %}
       <li><a href="{% url 'unionapp:detial'  pk=object.id %}">{{ object.name }}</a></li>
     {% endfor %}
   </ul>
-  <br/>
-  [FILTER UNION]
-  <form action="{% url 'unionapp:list' %}" method="GET">
-    <input type="text" name="q" />
-    <button type="submit">search</button>
-  </form>
 {% endblock %}
