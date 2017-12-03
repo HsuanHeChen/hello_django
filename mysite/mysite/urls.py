@@ -34,4 +34,5 @@ urlpatterns = [
 
     # hello CBV.
     url(r'^unions/', include('unionapp.urls', namespace='unionapp')),
+    url(r'^api/', include('api.urls')),
 ]
