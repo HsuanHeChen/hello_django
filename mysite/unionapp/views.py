@@ -2,6 +2,7 @@ import json
 # from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+# from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.core import serializers
 from django.utils import timezone
@@ -11,7 +12,6 @@ from .forms import UnionForm
 
 # Create your views here.
 class UnionMixin(object):
-    login_url = '/login/'
     model = Union
 
     @property
@@ -30,6 +30,7 @@ class UnionMixin(object):
 
 
 class UnionList(LoginRequiredMixin, UnionMixin, ListView):
+    login_url = "/login/"
 
     def get_queryset(self):
         # Fetch the queryset from the parent get_queryset
@@ -45,6 +46,7 @@ class UnionList(LoginRequiredMixin, UnionMixin, ListView):
 
 
 class UnionDetail(LoginRequiredMixin, UnionMixin, DetailView):
+    login_url = "/login/"
 
     def get_context_data(self, **kwargs):
         context = super(UnionDetail, self).get_context_data(**kwargs)
@@ -55,6 +57,7 @@ class UnionDetail(LoginRequiredMixin, UnionMixin, DetailView):
 class UnionCreate(LoginRequiredMixin, UnionMixin, CreateView):
     form_class = UnionForm
     success_msg = "Union created!"
+    login_url = "/login/"
 
     def form_valid(self, form):
         messages.success(self.request, self.success_msg)
@@ -73,6 +76,7 @@ class UnionCreate(LoginRequiredMixin, UnionMixin, CreateView):
 class UnionUpdate(LoginRequiredMixin, UnionMixin, UpdateView):
     form_class = UnionForm
     success_msg = "Union updated!"
+    login_url = "/login/"
 
     def form_valid(self, form):
         messages.success(self.request, self.success_msg)

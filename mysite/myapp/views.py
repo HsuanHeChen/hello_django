@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
@@ -6,6 +7,9 @@ from .models import Product, Voucher
 from .form import ProductForm
 
 # Create your views here.
+
+
+logger = logging.getLogger(__name__)
 
 
 # def hello_world(request, name=""):
@@ -19,6 +23,9 @@ class HelloWord(View):
 
 def products(request):
     products = Product.objects.all().order_by('-id')
+
+    logger.error("[TESTTEST] Internal Server Error: %s", request.path)
+
     return render(request, 'products.html', locals())
 
 
