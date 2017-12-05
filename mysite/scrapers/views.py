@@ -1,4 +1,4 @@
-import json, requests, re
+import json, requests, re, random
 from django.shortcuts import render
 from dateutil.parser import parse
 from django.views import generic
@@ -61,13 +61,14 @@ def post_fb_message(fbid, recevied_message):
             break
 
     # Remove all punctuations, lower case the text and split it based on space
-    tokens = re.sub(r"[^a-zA-Z0-9\s]", ' ', recevied_message).lower().split()
+    # tokens = re.sub(r"[^a-zA-Z0-9\s]", ' ', recevied_message).lower().split()
 
     user_details_url = "https://graph.facebook.com/v2.11/{}".format(fbid)
     user_details_params = {'fields': 'first_name,last_name,profile_pic', 'access_token': token} 
     user_details = requests.get(user_details_url, user_details_params).json()
     # print(user_details)
-    joke_text = 'Meow, {} {}.'.format(user_details['first_name'], user_details['last_name'])
+    # joke_text = 'Meow, {} {}.'.format(user_details['first_name'], user_details['last_name'])
+    joke_text = random.choice(['Meow', 'MeowMeow', 'MeowMeowMeow','Meeeeeeeow', 'MeoooOW'])
 
     post_message_url = 'https://graph.facebook.com/v2.11/me/messages?access_token={}'.format(token)
     response_msg = json.dumps({"recipient": {"id": fbid}, "message": {"text": joke_text}})
@@ -105,5 +106,13 @@ class PageWebHookView(generic.View):
                 # This might be delivery, optin, postback for other events 
                 if 'message' in message:
                     # Print the message to the terminal
-                    post_fb_message(message['sender']['id'], message['message']['text'])
+                    if 'text' in message['message']:
+                      post_fb_message(message['sender']['id'], message['message']['text'])
+                    elif 'attachments' in message['message']:
+                      post_fb_message(message['sender']['id'], message['message']['attachments'])
         return HttpResponse()
+
+
+# class TaiwanLotteryView(generic.View):
+
+
