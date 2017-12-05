@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block head %}<title>ECAPP24</title>{% endblock %}
+{% block content %}
+  <h1>ECAPP24</h1>
+  <div class="row flex-spaces">
+      {% for post in data %}
+        <div class="card margin" style="width: 20rem;">
+          <div class="card-header">{{post.author}}</div>
+          <div class="card-body">
+            <h4 class="card-title">{{post.story}}</h4>
+            <h5 class="card-subtitle">{{post.created_time}}</h5>
+            <p class="card-text">{{post.message}}</p>
+          </div>
+          <div class="card-footer">likes: {{post.likes}}, shares: {{post.shares}}</div>
+        </div>
+      {% endfor %}
+  </div>  
+{% endblock %}

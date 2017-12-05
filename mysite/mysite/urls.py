@@ -18,6 +18,7 @@ from django.contrib import admin
 from myapp.views import HelloWord, products, product_detail, product_create, product_edit, product_delete
 from loginapp.views import login, logout
 
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
@@ -35,4 +36,8 @@ urlpatterns = [
     # hello CBV.
     url(r'^unions/', include('unionapp.urls', namespace='unionapp')),
     url(r'^api/', include('api.urls')),
+
+    # scrapers
+    url(r'^scrapers/', include('scrapers.urls', namespace='scrapers')),
+
 ]
