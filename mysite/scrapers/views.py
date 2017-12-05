@@ -50,13 +50,13 @@ def ecapp24(request):
 
 
 # Helper function
-def post_facebook_message(fbid, recevied_message):
+def post_fb_message(fbid, recevied_message):
 
     # get_token
     res = requests.get('https://graph.facebook.com/v2.11/me/accounts?access_token={}'.format(ACCESS_TOKEN))
     token = ''
     for ele in res.json()['data']:
-        if ele['id'] == '535334790180327':
+        if ele['name'] == 'Momomolaimochi':
             token = ele['access_token']
             break
 
@@ -72,11 +72,11 @@ def post_facebook_message(fbid, recevied_message):
     post_message_url = 'https://graph.facebook.com/v2.11/me/messages?access_token={}'.format(token)
     response_msg = json.dumps({"recipient": {"id": fbid}, "message": {"text": joke_text}})
     status = requests.post(post_message_url, headers={"Content-Type": "application/json"}, data=response_msg)
-    # print(status.json())
+    print(status.json())
     print('=================Response message===================\n')
 
 
-class MomoBotView(generic.View):
+class PageWebHookView(generic.View):
     def get(self, request, *args, **kwargs):
         if self.request.GET['hub.verify_token'] == VERIFY_TOKEN:
             return HttpResponse(self.request.GET['hub.challenge'])
@@ -105,5 +105,5 @@ class MomoBotView(generic.View):
                 # This might be delivery, optin, postback for other events 
                 if 'message' in message:
                     # Print the message to the terminal
-                    post_facebook_message(message['sender']['id'], message['message']['text'])
+                    post_fb_message(message['sender']['id'], message['message']['text'])
         return HttpResponse()
