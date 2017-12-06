@@ -123,12 +123,13 @@ class TaiwanLotteryView(generic.View):
 
     def post(self, request, *args, **kwargs):
         form = LotteryForm(request.POST)
+        ball_greens = []
+        ball_red = 0
+        text = ''
         if form.is_valid():
             url = 'http://www.taiwanlottery.com.tw/'
             html = requests.get(url)
             sp = BeautifulSoup(html.text, 'html.parser')
-            ball_greens = []
-            ball_red = 0
 
             for element in sp.select('.contents_box02'):
                 # only get contents_logo_02 data

@@ -2,7 +2,7 @@
 {% block head %}<title>lottery</title>{% endblock %}
 {% block content %}
   <h1>Lottery</h1>
-  <h4><span class="badge warning">馬上下注威力彩</span></h4>
+  <h4><span class="badge warning">馬上下注</span></h4>
   <form action="{% url 'scrapers:lottery' %}" method="post">
     {% csrf_token %}
     <div class="row">
