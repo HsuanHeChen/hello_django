@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block head %}<title>lottery</title>{% endblock %}
+{% block content %}
+  <h1>Lottery</h1>
+  <h4><span class="badge warning">馬上下注</span></h4>
+  <form action="{% url 'scrapers:lottery' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+      {% for field in form %}
+        {% if forloop.first %}
+          <div class="col">第一區</div>
+        {% elif forloop.last %}
+          <div class="col">第二區</div>
+        {% endif %}
+        <div class="col sm-1">
+          <div class="form-group">
+            {{ field.errors }}
+            {{ field }}
+            {% if field.help_text %}
+              <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+          </div>
+        </div>  
+      {% endfor %}
+    </div>
+    <input type="submit" value="Submit" class="margin" />
+  </form>
+  
+  <h3>
+    {% for ball in ball_greens %}
+      <span class="badge success">{{ball}}</span>    
+    {% endfor %}
+    <span class="badge danger">{{ball_red}}</span>
+    <span> {{text}}</span>
+  </h3>
+
+{% endblock %}

@@ -8,3 +8,14 @@ a {
 .q-input {
   display: inline-block;  
 }
+
+.form-group {
+  position: relative;
+}
+
+.errorlist {
+  position: absolute;
+  top: 40px;
+  left: -40px;
+  color: #a7342d;
+}
