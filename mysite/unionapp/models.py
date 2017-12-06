@@ -10,6 +10,7 @@ from core.models import TimeStampedModel
 class Union(TimeStampedModel):
     name = models.CharField(max_length=200)
     disabled = models.BooleanField(default=False)
+    photo = models.ImageField(default='', upload_to='unions')
 
     def __str__(self):
         return self.name

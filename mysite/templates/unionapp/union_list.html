@@ -8,9 +8,18 @@
     <button type="submit" class="q-input">search</button>
   </form>
   <br/>
-  <ul>
+  <div class="row">
     {% for object in object_list %}
-      <li><a href="{% url 'unionapp:detial'  pk=object.id %}">{{ object.name }}</a></li>
+      <div class="card" style="width: 20rem; margin: 15px;">
+        <div class="card-body">
+          <h4 class="card-title">{{ object.name }}</h4>
+          <p class="card-text"></p>
+          <a href="{% url 'unionapp:detial'  pk=object.id %}"><button>Let me go here!</button></a>
+        </div>
+        {% if object.photo %}
+          <img class="image-bottom" src="{{ object.photo.url }}">
+        {% endif %}
+      </div>
     {% endfor %}
-  </ul>
+  </div>
 {% endblock %}
