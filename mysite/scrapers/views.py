@@ -42,7 +42,8 @@ def ecapp24(request):
                 else:
                     shares = 0
 
-                information_list.append({'author': fanpages[fanpage],
+                information_list.append({'id': information['id'],
+                                         'author': fanpages[fanpage],
                                          'message': information['message'],
                                          'story': information['story'] if 'story' in information else '',
                                          'likes': likes,

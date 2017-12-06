@@ -5,7 +5,7 @@
   <div class="row flex-spaces">
       {% for post in data %}
         <div class="card margin" style="width: 20rem;">
-          <div class="card-header">{{post.author}}</div>
+          <div class="card-header">{{post.author}}-({{post.id}})</div>
           <div class="card-body">
             <h4 class="card-title">{{post.story}}</h4>
             <h5 class="card-subtitle">{{post.created_time}}</h5>
