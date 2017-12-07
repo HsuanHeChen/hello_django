@@ -42,5 +42,7 @@ urlpatterns = [
     # scrapers
     url(r'^scrapers/', include('scrapers.urls', namespace='scrapers')),
 
+    url(r'^lists/', include('lists.urls', namespace='lists')),
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

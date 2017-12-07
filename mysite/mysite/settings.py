@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9+n*tx&147%!4x*d#-ml&fy=8nmprt7x&-_p9d29%%ccs6e%sl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '69dbf51b.ngrok.io']
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'unionapp',
     'api',
     'scrapers',
+    'lists',
 ]
 
 MIDDLEWARE = [

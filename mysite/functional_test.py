@@ -15,7 +15,7 @@ class NewVisitorTest(unittest.TestCase):
         self.browser.get('http://localhost:8000')
 
         # just check title
-        self.assertIn('TODO', self.browser.title)
+        self.assertIn('HelloWorld', self.browser.title)
         # self.fail 無論如何都會失敗並產生給定的訊息
         self.fail('Finish test.')
 
