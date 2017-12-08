@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9+n*tx&147%!4x*d#-ml&fy=8nmprt7x&-_p9d29%%ccs6e%sl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '69dbf51b.ngrok.io']
 
@@ -145,7 +145,7 @@ LOGGING = {
     'loggers': {
         'django.db.backends': {
             'handlers': ['console'],
-            'level': 'DEBUG' if DEBUG else 'INFO',
+            # 'level': 'DEBUG' if DEBUG else 'INFO',
         },
     },
 }

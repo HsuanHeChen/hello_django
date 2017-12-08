@@ -16,5 +16,5 @@ class ListPageTest(TestCase):
         request = HttpRequest()
         res = home_page(request)
         self.assertTrue(res.content.startswith(b'<html>'))
-        self.assertIn(b'<title>TODO lists</title>', res.content)
+        self.assertIn(b'<title>TODO</title>', res.content)
         self.assertTrue(res.content.endswith(b'</html>'))
