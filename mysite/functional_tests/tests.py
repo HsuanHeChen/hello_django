@@ -1,10 +1,10 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
 import time
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -20,7 +20,8 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Who open the website
-        self.browser.get('http://localhost:8000/lists/')
+        # self.browser.get('http://localhost:8000/lists/')
+        self.browser.get(self.live_server_url+'/lists/')
 
         # there are title and h1
         self.assertIn('TODO', self.browser.title)
@@ -33,6 +34,7 @@ class NewVisitorTest(unittest.TestCase):
 
         # enter to do list in the input box and send it
         inputbox.send_keys('[FT] I want to do sth1.')
+        time.sleep(1)
         inputbox.send_keys(Keys.ENTER)
         time.sleep(3)
 
@@ -41,6 +43,7 @@ class NewVisitorTest(unittest.TestCase):
 
         inputbox = self.browser.find_element_by_id('id_new_item')
         inputbox.send_keys('[FT] I want to do sth2.')
+        time.sleep(1)
         inputbox.send_keys(Keys.ENTER)
         time.sleep(3)
 
@@ -52,5 +55,5 @@ class NewVisitorTest(unittest.TestCase):
         self.fail('Finish test.')
 
 
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
+# if __name__ == '__main__':
+#     unittest.main(warnings='ignore')
