@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.core.exceptions import ValidationError
 from lists.models import Item, List
 
 
@@ -27,3 +28,14 @@ class ListItemModelsTest(TestCase):
         self.assertEqual(items[0].list, _list)
         self.assertEqual(items[1].text, 'The second todo.')
         self.assertEqual(items[1].list, _list)
+
+    def test_cant_save_empty_list_items(self):
+        _list = List.objects.create()
+        item = Item(list=_list, text='')
+        with self.assertRaises(ValidationError):
+            item.save()
+            item.full_clean()
+
+    def test_get_absolute_url(self):
+        _list = List.objects.create()
+        self.assertEqual(_list.get_absolute_url(), '/lists/%d/' % (_list.id,))

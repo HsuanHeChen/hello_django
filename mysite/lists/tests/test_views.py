@@ -32,14 +32,9 @@ class ListViewTest(TestCase):
         self.assertNotContains(response, "other item1")
         self.assertNotContains(response, "other item2")
 
-    # def test_passes_corrent_list_to_template(self):
-
-
-class NewListTest(TestCase):
-
     def test_can_save_a_POST_request_to_an_existing_list(self):
         new_list = List.objects.create()
-        self.client.post('/lists/%d/add_item' % (new_list.id,), data={'item_text': 'A new list item'})
+        self.client.post('/lists/%d/' % (new_list.id,), data={'item_text': 'A new list item'})
 
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
@@ -48,5 +43,26 @@ class NewListTest(TestCase):
 
     def test_redirects_to_list_view(self):
         new_list = List.objects.create()
-        response = self.client.post('/lists/%d/add_item' % (new_list.id,), data={'item_text': 'A new list item'})
+        response = self.client.post('/lists/%d/' % (new_list.id,), data={'item_text': 'A new list item'})
         self.assertRedirects(response, '/lists/%d/' % (new_list.id,))
+
+    def test_validation_errors_end_up_on_list_page(self):
+        _list = List.objects.create()
+        response = self.client.post('/lists/%d/' % (_list.id,), data={'item_text': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lists/list.html')
+        self.assertContains(response, 'You cannot have an empty list item.')
+
+
+class NewListTest(TestCase):
+
+    def test_validation_errors_are_send_back_to_page_template(self):
+        response = self.client.post('/lists/new', data={'item_text': ''})
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'lists/home.html')
+        self.assertContains(response, 'You cannot have an empty list item.')
+
+    def test_invalid_list_items_arent_saved(self):
+        self.client.post('/lists/new', data={'item_text': ''})
+        self.assertEqual(List.objects.count(), 0)
+        self.assertEqual(Item.objects.count(), 0)
