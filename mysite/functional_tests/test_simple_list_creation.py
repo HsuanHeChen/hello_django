@@ -16,11 +16,11 @@ class NewVisitorTest(FunctionalTest):
         self.assertIn('TODO', h1)
 
         # there is a input box with placeholder
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertEqual(inputbox.get_attribute('placeholder'), 'Enter a TODO item.')
 
         # enter to do list in the input box and send it
-        inputbox.send_keys('[FT] AAA want to do sth1.')
+        inputbox.send_keys('AAA want to do sth1.')
         time.sleep(1)
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
@@ -30,17 +30,17 @@ class NewVisitorTest(FunctionalTest):
         self.assertRegex(aaa_list_url, '/lists/.+')
 
         # find it on page
-        self.check_for_row_in_list_table('[FT] AAA want to do sth1.')
+        self.check_for_row_in_list_table('AAA want to do sth1.')
 
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        inputbox.send_keys('[FT] AAA want to do sth2.')
+        inputbox = self.get_item_input_box()
+        inputbox.send_keys('AAA want to do sth2.')
         time.sleep(1)
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(1)
+        time.sleep(10)
 
         # find they on page
-        self.check_for_row_in_list_table('[FT] AAA want to do sth2.')
-        self.check_for_row_in_list_table('[FT] AAA want to do sth1.')
+        self.check_for_row_in_list_table('AAA want to do sth2.')
+        self.check_for_row_in_list_table('AAA want to do sth1.')
 
         # BBB open the website
         self.browser.quit()
@@ -49,12 +49,12 @@ class NewVisitorTest(FunctionalTest):
 
         # There are no AAA's lists.
         page_text = self.browser.find_element_by_tag_name('body').text
-        self.assertNotIn('[FT] AAA want to do sth2.', page_text)
-        self.assertNotIn('[FT] AAA want to do sth1.', page_text)
+        self.assertNotIn('AAA want to do sth2.', page_text)
+        self.assertNotIn('AAA want to do sth1.', page_text)
 
         # BBB enter list
-        inputbox = self.browser.find_element_by_id('id_new_item')
-        inputbox.send_keys('[FT] BBB want to do sth1.')
+        inputbox = self.get_item_input_box()
+        inputbox.send_keys('BBB want to do sth1.')
         inputbox.send_keys(Keys.ENTER)
 
         bbb_list_url = self.browser.current_url
