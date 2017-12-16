@@ -1,6 +1,6 @@
 from django.test import TestCase
 from lists.models import Item, List
-from lists.forms import ItemForm
+from lists.forms import EMPTY_ITEM_ERROR, DUPLICATE_ITEM_ERROR, ItemForm, ExistingListItemForm
 
 # Create your tests here.
 
@@ -69,13 +69,25 @@ class ListViewTest(TestCase):
 
     def test_for_invalid_input_show_error_on_page(self):
         response = self.post_invalid_input()
-        self.assertContains(response, 'You cannot have an empty list item.')
+        self.assertContains(response, EMPTY_ITEM_ERROR)
 
     def test_display_item_form(self):
         _list = List.objects.create()
         response = self.client.get('/lists/%d/' % (_list.id,))
-        self.assertIsInstance(response.context['form'], ItemForm)
+        self.assertIsInstance(response.context['form'], ExistingListItemForm)
         self.assertContains(response, 'name="text"')
+
+    def test_duplication_item_validation_errors_end_up_on_list_page(self):
+        _list = List.objects.create()
+        Item.objects.create(text='ft_item', list=_list)
+        response = self.client.post('/lists/%d/' % (_list.id,), data={'text': 'ft_item'})
+        self.assertContains(response, DUPLICATE_ITEM_ERROR)
+        self.assertTemplateUsed(response, 'lists/list.html')
+        self.assertEqual(Item.objects.count(), 1)
+
+    def test_for_invalid_input_passes_form_to_template(self):
+        response = self.post_invalid_input()
+        self.assertIsInstance(response.context['form'], ExistingListItemForm)
 
 
 class NewListTest(TestCase):
@@ -87,7 +99,7 @@ class NewListTest(TestCase):
 
     def test_validation_error_are_show_on_page(self):
         response = self.client.post('/lists/new', data={'text': ''})
-        self.assertContains(response, 'You cannot have an empty list item.')
+        self.assertContains(response, EMPTY_ITEM_ERROR)
 
     def test_for_invalid_input_passes_form_to_template(self):
         response = self.client.post('/lists/new', data={'text': ''})

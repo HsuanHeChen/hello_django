@@ -8,7 +8,7 @@ class LayoutAndStylingTest(FunctionalTest):
     @skip
     def test_layout_and_styling(self):
         # AAA open the website of lists
-        self.browser.get(self.live_server_url + '/lists/')
+        self.browser.get(self.server_url)
         self.browser.set_window_size(1024, 768)
 
         # input box style in center

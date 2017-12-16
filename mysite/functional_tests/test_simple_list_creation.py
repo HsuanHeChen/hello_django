@@ -8,7 +8,7 @@ class NewVisitorTest(FunctionalTest):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         # AAA open the website of lists
-        self.browser.get(self.server_url + '/lists/')
+        self.browser.get(self.server_url)
 
         # there are title and h1
         self.assertIn('TODO', self.browser.title)
@@ -45,7 +45,7 @@ class NewVisitorTest(FunctionalTest):
         # BBB open the website
         self.browser.quit()
         self.browser = webdriver.Firefox()
-        self.browser.get(self.live_server_url + '/lists/')
+        self.browser.get(self.server_url)
 
         # There are no AAA's lists.
         page_text = self.browser.find_element_by_tag_name('body').text

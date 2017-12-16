@@ -12,8 +12,11 @@ class List(TimeStampedModel):
 
 
 class Item(TimeStampedModel):
-    text = models.TextField()
+    text = models.TextField(default='')
     list = models.ForeignKey(List)
+
+    class Meta:
+        unique_together = ('list', 'text')
 
     def __str__(self):
         return str(self.pk)

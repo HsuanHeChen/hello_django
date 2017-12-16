@@ -1,11 +1,16 @@
+import time
+from unittest import skip
+from selenium.webdriver.common.keys import Keys
 from .base import FunctionalTest
 
 
 class ItemValidationTest(FunctionalTest):
 
-    def xtest_cant_add_empty_item(self):
+    # skip: the required input auto stop user send enter.
+    @skip
+    def test_cant_add_empty_item(self):
         # AAA open the website of lists
-        self.browser.get(self.server_url + '/lists/')
+        self.browser.get(self.server_url)
 
         # inputbox submit with empty
         self.get_item_input_box().send_keys('\n')
@@ -18,3 +23,20 @@ class ItemValidationTest(FunctionalTest):
         self.check_for_row_in_list_table('Buy anything.')
 
         self.fail('Write test.')
+
+    def test_cant_add_duplicate_items(self):
+        # AAA open the website of lists and sent 'taiwan'
+        self.browser.get(self.server_url)
+        self.get_item_input_box().send_keys('Taiwan.')
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        time.sleep(1)
+        self.check_for_row_in_list_table('Taiwan.')
+
+        # AAA sent 'taiwan' again
+        self.get_item_input_box().send_keys('Taiwan.')
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        time.sleep(10)
+
+        # page reload and got a message - no duplicate item
+        error = self.browser.find_element_by_css_selector('.alert-warning')
+        self.assertEqual(error.text, "You have already got this.")

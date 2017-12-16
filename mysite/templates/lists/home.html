@@ -6,7 +6,7 @@
   <h1>start a TODO list</h1>
   {% if form.errors %}
     <div class="row flex-spaces">
-      <div class="alert alert-warning">{{form.errors}}</div>
+      <div class="alert alert-warning">{{form.text.errors}}</div>
     </div>
   {% endif %}
   <div class="row flex-center">
