@@ -40,3 +40,16 @@ class ItemValidationTest(FunctionalTest):
         # page reload and got a message - no duplicate item
         error = self.browser.find_element_by_css_selector('.alert-warning')
         self.assertEqual(error.text, "You have already got this.")
+
+    def test_error_messages_are_cleared_on_input(self):
+        # AAA open the website of lists
+        self.browser.get(self.server_url)
+        # inputbox submit with empty and get a .has-error element from js
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        error = self.browser.find_element_by_css_selector('.has-error')
+        self.assertTrue(error.is_displayed())
+
+        # input sth. and the .has-error should be gone
+        self.get_item_input_box().send_keys('aaa')
+        error = self.browser.find_element_by_css_selector('.has-error')
+        self.assertFalse(error.is_displayed())
