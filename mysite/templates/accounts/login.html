@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block head %}<title>ACCOUNTS LOGIN</title>{% endblock %}
+{% block content %}
+  <h1>Get your access code by email</h1>
+  <p>Enter your email address to receive your access code</p>
+  <form method="POST" action=".">
+    <div class="form-group">
+      <input name="email" type="email" placeholder="your@email.com" />
+    </div>
+    <input type="submit" value="Get Token" />
+    {% csrf_token %}
+  </form>
+
+  <h1>Log in using email access code</h1>
+  <p>Check your email for a code  and enter it here</p>
+  <form method="POST" action=".">
+    <div class="form-group">
+      <input name="uid" type="text" />
+    </div>
+    <input type="submit" value="Log in" />
+    {% csrf_token %}
+  </form>
+{% endblock content %}

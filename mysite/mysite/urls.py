@@ -44,5 +44,7 @@ urlpatterns = [
 
     url(r'^lists/', include('lists.urls', namespace='lists')),
 
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),    
+
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

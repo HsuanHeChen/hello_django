@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
@@ -22,7 +23,7 @@ class Union(TimeStampedModel):
 class Member(TimeStampedModel):
     union = models.ForeignKey('Union', on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    token = models.CharField(blank=True, max_length=128)
+    token = models.CharField(default=uuid.uuid4, max_length=40)
     invited_at = models.DateTimeField(auto_now=True)
     join_at = models.DateTimeField(null=True, blank=True)
     quit_at = models.DateTimeField(null=True, blank=True)
