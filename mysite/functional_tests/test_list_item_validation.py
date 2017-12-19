@@ -41,6 +41,7 @@ class ItemValidationTest(FunctionalTest):
         error = self.browser.find_element_by_css_selector('.alert-warning')
         self.assertEqual(error.text, "You have already got this.")
 
+    @skip
     def test_error_messages_are_cleared_on_input(self):
         # AAA open the website of lists
         self.browser.get(self.server_url)
