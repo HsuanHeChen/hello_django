@@ -27,7 +27,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
-        User.objects.create_superuser(
+        User.objects.create_user(
             username='admin',
             password='1234qwer',
             email='admin@example.com'
