@@ -36,11 +36,11 @@ class NewVisitorTest(FunctionalTest):
         inputbox.send_keys('AAA want to do sth2.')
         time.sleep(1)
         inputbox.send_keys(Keys.ENTER)
-        time.sleep(10)
+        # time.sleep(10)
 
         # find they on page
-        self.check_for_row_in_list_table('AAA want to do sth2.')
-        self.check_for_row_in_list_table('AAA want to do sth1.')
+        self.wait_for(lambda: self.check_for_row_in_list_table('AAA want to do sth2.'))
+        self.wait_for(lambda: self.check_for_row_in_list_table('AAA want to do sth1.'))
 
         # BBB open the website
         self.browser.quit()

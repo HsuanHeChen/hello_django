@@ -14,9 +14,9 @@
         <div class="sm-12 col" style="text-align: right;">
           {% if request.user.is_authenticated %}
             Hi, {{request.user.username}}
-            <a href="/logout" class="paper-btn btn-small">Logout</a>
+            <a href="/logout" class="paper-btn btn-small" id="logout">Logout</a>
           {% else %}
-            <a href="/login" class="paper-btn btn-small">Login</a>
+            <a href="/login" class="paper-btn btn-small" id="login">Login</a>
           {% endif %}
         </div>
       </div>

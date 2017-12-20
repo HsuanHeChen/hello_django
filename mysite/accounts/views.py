@@ -33,7 +33,7 @@ def account_login(request):
             user = ListUser.objects.create(email=token.email)
 
         if user:
-            auth_login(request, user)
+            # auth_login(request, user)
             messages.success(request, 'Logged in as {}'.format(user.email))
             return redirect('/lists/')
 
@@ -42,5 +42,5 @@ def account_login(request):
 
 
 def account_logout(request):
-    auth_logout(request)
+    # auth_logout(request)
     return redirect('/lists/')

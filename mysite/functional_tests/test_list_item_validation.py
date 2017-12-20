@@ -29,17 +29,17 @@ class ItemValidationTest(FunctionalTest):
         self.browser.get(self.server_url)
         self.get_item_input_box().send_keys('Taiwan.')
         self.get_item_input_box().send_keys(Keys.ENTER)
-        time.sleep(1)
-        self.check_for_row_in_list_table('Taiwan.')
+        self.wait_for(lambda: self.check_for_row_in_list_table('Taiwan.'))
 
         # AAA sent 'taiwan' again
         self.get_item_input_box().send_keys('Taiwan.')
         self.get_item_input_box().send_keys(Keys.ENTER)
-        time.sleep(10)
 
         # page reload and got a message - no duplicate item
-        error = self.browser.find_element_by_css_selector('.alert-warning')
-        self.assertEqual(error.text, "You have already got this.")
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.find_element_by_css_selector('.alert-warning').text,
+            "You have already got this."
+        ))
 
     @skip
     def test_error_messages_are_cleared_on_input(self):

@@ -1,6 +1,12 @@
 import sys
+import time
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
+from selenium.common.exceptions import WebDriverException
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+MAX_WAIT = 10
 
 
 class FunctionalTest(StaticLiveServerTestCase):
@@ -16,11 +22,16 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     @classmethod
     def tearDownClass(cls):
-        if cls.server_url == cls.live_server_url:
+        if cls.server_url == cls.live_server_url + '/lists/':
             super().tearDownClass()
 
     def setUp(self):
         self.browser = webdriver.Firefox()
+        User.objects.create_superuser(
+            username='admin',
+            password='1234qwer',
+            email='admin@example.com'
+        )
         self.browser.implicitly_wait(3)
 
     def tearDown(self):
@@ -33,3 +44,13 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def get_item_input_box(self):
         return self.browser.find_element_by_id('id_text')
+
+    def wait_for(self, fn):
+        start_time = time.time()
+        while True:
+            try:
+                return fn()
+            except (AssertionError, WebDriverException) as e:
+                if time.time() - start_time > MAX_WAIT:
+                    raise e
+                time.sleep(0.5)
