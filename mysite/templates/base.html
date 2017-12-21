@@ -11,7 +11,7 @@
   <body>
     <div class="margin">
       <div class="row flex-spaces child-borders">
-        <div class="sm-12 col" style="text-align: right;">
+        <div id='header-nav' class="sm-12 col" style="text-align: right;">
           {% if request.user.is_authenticated %}
             Hi, {{request.user.username}}
             <a href="/logout" class="paper-btn btn-small" id="logout">Logout</a>
