@@ -4,12 +4,15 @@
 {% endblock %}
 {% block content %}
   <h1>Your TODO list</h1>
+  {% if request.user.is_authenticated %}
+    <div class="row margin"><a href="{% url 'lists:my_lists' request.user.id %}">My Lists</a></div>
+  {% endif %}
   {% if form.errors %}
     <div class="row flex-spaces">
       <div class="alert alert-warning">{{form.text.errors}}</div>
     </div>
   {% endif %}
-  <div class="row flex-center">
+  <div class="row">
     <form method="POST" action="{% url 'lists:view_list' list.id %}">
       <div class="sm-4 col">
         {{ form.text }}

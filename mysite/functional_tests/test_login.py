@@ -19,6 +19,7 @@ class LoginTest(FunctionalTest):
         self.browser.find_element_by_xpath('//input[@type="submit"]').click()
 
         self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_css_selector('.alert-success').text, 'Login successfully.'))
+        self.wait_for(lambda: self.assertIn('admin', self.browser.find_element_by_id('header-nav').text))
         time.sleep(1)
 
         """

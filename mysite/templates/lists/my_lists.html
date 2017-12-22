@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block head %}
+  <title>MYLISTs</title>
+{% endblock %}
+{% block content %}
+  <h1>My TODO list</h1>
+  <ul id="id_list_table">
+    {% for list in owner.list_set.all %}
+      <li><a href="{{ list.get_absolute_url }}">{{ list.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
