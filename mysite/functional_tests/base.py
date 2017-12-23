@@ -55,3 +55,16 @@ class FunctionalTest(StaticLiveServerTestCase):
                 if time.time() - start_time > MAX_WAIT:
                     raise e
                 time.sleep(0.5)
+
+    def create_pre_authenticated_session(self, name, pw, email):
+        User.objects.create_user(
+            username=name,
+            password=pw,
+            email=email,
+        )
+        self.browser.get(self.server_url)
+        self.browser.find_element_by_id('login').click()
+        self.browser.find_element_by_name('username').send_keys(name)
+        self.browser.find_element_by_name('password').send_keys(pw)
+        self.browser.find_element_by_xpath('//input[@type="submit"]').click()
+        self.wait_for(lambda: self.assertEqual(self.browser.find_element_by_css_selector('.alert-success').text, 'Login successfully.'))

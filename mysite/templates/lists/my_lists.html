@@ -4,9 +4,18 @@
 {% endblock %}
 {% block content %}
   <h1>My TODO list</h1>
-  <ul id="id_list_table">
-    {% for list in owner.list_set.all %}
-      <li><a href="{{ list.get_absolute_url }}">{{ list.name }}</a></li>
-    {% endfor %}
-  </ul>
+  <table id='id_list_table'>
+    <thead>
+      <tr>
+        <th>List</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for list in owner.list_set.all %}
+        <tr>
+          <td><li><a href="{{ list.get_absolute_url }}">{{ list.name }}</a></li></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}

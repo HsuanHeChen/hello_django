@@ -20,9 +20,18 @@
       {% csrf_token %}
     </form>
   </div>
-  <ol id="id_list_table">
-    {% for item in list.item_set.all %}
-      <li>{{ item.text }}</li>
-    {% endfor %}
-  </ol>
+  <table id='id_list_table'>
+    <thead>
+      <tr>
+        <th>Todo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in list.item_set.all %}
+        <tr>
+          <td><li>{{ item.text }}</li></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}
