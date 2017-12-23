@@ -32,6 +32,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             password='1234qwer',
             email='admin@example.com'
         )
+        # 不可靠
         self.browser.implicitly_wait(3)
 
     def tearDown(self):

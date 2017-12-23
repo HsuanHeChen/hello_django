@@ -51,7 +51,7 @@ class MyListsTest(FunctionalTest):
 
         # 'AAA list 2' should be found in lists
         self.browser.find_element_by_link_text('My Lists').click()
-        self.browser.find_element_by_link_text('AAA list 2').click()
+        self.wait_for(lambda: self.browser.find_element_by_link_text('AAA list 2').click())
         self.wait_for(lambda: self.assertEqual(self.browser.current_url, second_url))
         time.sleep(1)
 
