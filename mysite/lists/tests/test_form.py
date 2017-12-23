@@ -17,15 +17,6 @@ class ItemFormTest(ListsTestCase):
         self.assertFalse(form.is_valid())
         self.assertEqual(form.errors['text'], [EMPTY_ITEM_ERROR])
 
-    def test_form_save_handles_saving_to_a_list(self):
-        form = ItemForm(data={'text': 'do me'})
-        owner = self.init_owner()
-        _list = List.objects.create(owner=owner)
-        new_item = form.save(for_list=_list)
-        self.assertEqual(new_item, Item.objects.last())
-        self.assertEqual(new_item.text, 'do me')
-        self.assertEqual(new_item.list, _list)
-
 
 class ExistingListItemFormTest(ListsTestCase):
 
