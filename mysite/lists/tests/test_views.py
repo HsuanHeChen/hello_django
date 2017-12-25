@@ -176,7 +176,8 @@ class NewListViewUnitTest(unittest.TestCase):
         self.assertEqual(response, mock_render.return_value)
         mock_render.assert_called_once_with(self.request, 'lists/home.html', {'form': mock_form})
 
-    def test_does_not_save_if_form_invalid(self, mockNewListForm):
+    @patch('lists.views.render')
+    def test_does_not_save_if_form_invalid(self, mock_render, mockNewListForm):
         mock_form = mockNewListForm.return_value
         mock_form.is_valid.return_value = False
         new_list(self.request)
