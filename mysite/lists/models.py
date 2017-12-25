@@ -32,3 +32,6 @@ class Item(TimeStampedModel):
 
     def __str__(self):
         return str(self.pk)
+
+    def get_absolute_url(self):
+        return reverse('lists:view_list', args=[self.list.id])
