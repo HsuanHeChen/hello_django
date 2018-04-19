@@ -1,4 +1,7 @@
-import json, requests, re, random
+import json
+import requests
+import re
+import random
 from django.shortcuts import render
 from dateutil.parser import parse
 from django.views import generic
@@ -17,8 +20,7 @@ VERIFY_TOKEN = "323"
 
 def ecapp24(request):
 
-    fanpages = {'112520726085483': '電商小幫',
-                '10209804804028445': 'HsuanHe Chen'}
+    fanpages = {'10209804804028445': 'HsuanHe Chen'}
 
     information_list = []
 
@@ -82,6 +84,7 @@ def post_fb_message(fbid, recevied_message):
 
 
 class PageWebHookView(generic.View):
+
     def get(self, request, *args, **kwargs):
         if self.request.GET['hub.verify_token'] == VERIFY_TOKEN:
             return HttpResponse(self.request.GET['hub.challenge'])
@@ -111,13 +114,14 @@ class PageWebHookView(generic.View):
                 if 'message' in message:
                     # Print the message to the terminal
                     if 'text' in message['message']:
-                      post_fb_message(message['sender']['id'], message['message']['text'])
+                        post_fb_message(message['sender']['id'], message['message']['text'])
                     elif 'attachments' in message['message']:
-                      post_fb_message(message['sender']['id'], message['message']['attachments'])
+                        post_fb_message(message['sender']['id'], message['message']['attachments'])
         return HttpResponse()
 
 
 class TaiwanLotteryView(generic.View):
+
     def get(self, request, *args, **kwargs):
         form = LotteryForm()
         return render(request, 'scrapers/lottery.html', {'form': form})
