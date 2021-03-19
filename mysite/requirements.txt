@@ -31,7 +31,7 @@ django-file-resubmit==0.5.1
 django-model-utils==3.0.0
 django-redis==4.8.0
 django-test-plus==1.0.20
-djangorestframework==3.7.3
+djangorestframework==3.11.2
 docutils==0.14
 environ==1.0
 factory-boy==2.9.2
